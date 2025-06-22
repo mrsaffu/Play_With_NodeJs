@@ -6,8 +6,6 @@ const menuRoutes = require('./Routes/menu.Routes')
 app.use(express.json())
 
 
-
-
 app.get('/', (req, res) => {
     res.send("Welcome to my Hotel")
 
@@ -16,11 +14,6 @@ app.get('/', (req, res) => {
 // ! use Router
 app.use('/person', personRoutes)
 app.use('/menu', menuRoutes)
-
-
-
-
-
 
 app.listen(3000, () => {
     console.log("listen on port no 3000");

@@ -56,9 +56,55 @@ const getPersonByWork = async (req, res) => {
     }
 }
 
+// ! Update
+const updatePerson = async (req, res) => {
+    try {
+        const personId = req.params.id;
+        const updatedPerson = req.body;
+        const response = await Person.findByIdAndUpdate(personId, updatedPerson, {
+            new: true,
+            runValidators: true
+        });
+        if (!response) {
+            console.log("Person not Found");
+            return res.status(404).json({ error: 'Data not Found .!' })
+        }
+        console.log("Data Updated sucessfully");
+        res.status(200).json({ message: "Data Updated Sucessfully", data: response })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Internal server error" })
+    }
+
+}
+
+// ! Delete
+
+const deletePerson = async (req, res) => {
+    try {
+        const personId = req.params.id
+        const response = await Person.findByIdAndDelete(personId)
+        if (!response) {
+            res.status(404).json({ error: "Data not found ..!" })
+        }
+        console.log('Person deleted');
+        res.status(200).json({ message: "Data delete Sucessfully", data: null })
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Internal server error" })
+
+    }
+}
+
+
+
 module.exports = {
     createPerson,
     getAllPerson,
-    getPersonByWork
+    getPersonByWork,
+    updatePerson,
+    deletePerson
 
 }
